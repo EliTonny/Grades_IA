@@ -1,6 +1,7 @@
 package grades_ia;
 
 import busca.Estado;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MontaGrade implements Estado{
@@ -23,7 +24,19 @@ public class MontaGrade implements Estado{
 
     @Override
     public List<Estado> sucessores() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Estado> suc = new LinkedList<Estado>(); //Lista de sucessores
+        /*
+          loop de pegar uma matéria e ver se ela se encaixa, pelo menos eu acho
+        */
+        return suc;
+    }
+    
+    public boolean ehValido(int dia1, int horario1, int dia2, int horario2){
+        if(!semana[dia1][horario1].equalsIgnoreCase(""))
+            return false;
+        if(!semana[dia2][horario2].equalsIgnoreCase(""))
+            return false;
+        return true;
     }
     
 }

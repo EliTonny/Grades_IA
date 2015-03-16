@@ -3,7 +3,7 @@ package grades_ia;
 public class Disciplina {
     private String nome;
     private int[] horario;
-    private String[] dia;
+    private int[] dia;
     private Disciplina dependencia;
     private boolean aprovado;
     
@@ -19,7 +19,7 @@ public class Disciplina {
         return horario;
     }
 
-    public String[] getDia() {
+    public int[] getDia() {
         return dia;
     }
 
@@ -35,7 +35,7 @@ public class Disciplina {
         this.horario = horario;
     }
 
-    public void setDia(String[] dia) {
+    public void setDia(int[] dia) {
         this.dia = dia;
     }
 

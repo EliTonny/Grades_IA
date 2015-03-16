@@ -200,12 +200,12 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
 
     private void btCriaDiscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCriaDiscActionPerformed
         int[] horario = new int[2];
-        String[] dia = new String[2];
+        int[] dia = new int[2];
         
         horario[0] = Integer.parseInt(tfHorario.getText());
         horario[1] = Integer.parseInt(tfHorario2.getText());
-        dia[0] = tfDiaSemana.getText();
-        dia[1] = tfDiaSemana2.getText();
+        dia[0] = Integer.parseInt(tfDiaSemana.getText());
+        dia[1] = Integer.parseInt(tfDiaSemana2.getText());
         
         Disciplina novoDisc = new Disciplina(tfNomeDisciplina.getText());
         novoDisc.setHorario(horario);
