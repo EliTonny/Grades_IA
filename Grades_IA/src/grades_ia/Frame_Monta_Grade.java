@@ -1,5 +1,7 @@
 package grades_ia;
 
+import busca.BuscaLargura;
+import busca.Nodo;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -44,6 +46,8 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         tfDiscGeraDependente = new javax.swing.JTextField();
         tfDiscDependente = new javax.swing.JTextField();
         btCriaDep = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        btGeraGrade = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -180,6 +184,32 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Cadastrar Dependência", jPanel2);
 
+        btGeraGrade.setText("Gerar grade");
+        btGeraGrade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGeraGradeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btGeraGrade)
+                .addContainerGap(345, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(136, Short.MAX_VALUE)
+                .addComponent(btGeraGrade)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Executar", jPanel3);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,6 +261,23 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btCriaDepActionPerformed
 
+    private void btGeraGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGeraGradeActionPerformed
+        String[][] semana = new String[5][2];
+        ArrayList<Disciplina> discNaoFinalizadas = new ArrayList<>();
+        for (Disciplina disc : disciplinas) {
+            if(!disc.isAprovado()){
+                discNaoFinalizadas.add(disc);
+            }
+        }
+        MontaGrade inicial = new MontaGrade(semana, discNaoFinalizadas);
+        Nodo nodo = new BuscaLargura().busca(inicial);
+        if(nodo == null){
+            JOptionPane.showMessageDialog(rootPane, "Sem solução!");
+        } else{
+            JOptionPane.showMessageDialog(rootPane, "Solução: \n" + nodo.montaCaminho());
+        }
+    }//GEN-LAST:event_btGeraGradeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -269,6 +316,7 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCriaDep;
     private javax.swing.JButton btCriaDisc;
+    private javax.swing.JButton btGeraGrade;
     private javax.swing.JCheckBox cbAprovado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -279,6 +327,7 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField tfDiaSemana;
     private javax.swing.JTextField tfDiaSemana2;
