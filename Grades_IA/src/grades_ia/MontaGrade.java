@@ -59,7 +59,7 @@ public class MontaGrade implements Estado, Antecessor{
         return sucessores();
     }
     
-    public boolean ehValido(Disciplina disc){
+    public boolean ehValido(Disciplina disc){        
         if(!semana[disc.getDia()[0]][disc.getHorario()[0]].equalsIgnoreCase(""))
             return false;
         if(!semana[disc.getDia()[1]][disc.getHorario()[1]].equalsIgnoreCase(""))
