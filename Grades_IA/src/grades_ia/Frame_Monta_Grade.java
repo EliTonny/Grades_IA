@@ -298,10 +298,10 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         ArrayList<Disciplina> discNaoFinalizadas = new ArrayList<>();
         
         Disciplina novoDisc = new Disciplina("PS2");
-        horario[0] = 1;
-        horario[1] = 2;
-        dia[0] = 1; //segunda
-        dia[1] = 2;  //terca
+        horario[0] = 0;
+        horario[1] = 1;
+        dia[0] = 0; //segunda
+        dia[1] = 1;  //terca
         novoDisc.setHorario(horario);
         novoDisc.setDia(dia);
         novoDisc.setAprovado(false);
@@ -310,10 +310,10 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         novoDisc = new Disciplina("Robotica");
         horario = new int[2];
         dia = new int[2];
-        horario[0] = 2;
-        horario[1] = 1;
-        dia[0] = 1; //segunda
-        dia[1] = 2;  //terca
+        horario[0] = 1;
+        horario[1] = 0;
+        dia[0] = 0; //segunda
+        dia[1] = 1;  //terca
         novoDisc.setHorario(horario);
         novoDisc.setDia(dia);
         novoDisc.setAprovado(false);
@@ -322,10 +322,10 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         novoDisc = new Disciplina("WEB");
         horario = new int[2];
         dia = new int[2];        
-        horario[0] = 1;
-        horario[1] = 1;
-        dia[0] = 3; //quarta
-        dia[1] = 4;  //quinta
+        horario[0] = 0;
+        horario[1] = 0;
+        dia[0] = 2; //quarta
+        dia[1] = 3;  //quinta
         novoDisc.setHorario(horario);
         novoDisc.setDia(dia);
         novoDisc.setAprovado(false);
@@ -334,10 +334,10 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         novoDisc = new Disciplina("IA");
         horario = new int[2];
         dia = new int[2];        
-        horario[0] = 2;
-        horario[1] = 2;
-        dia[0] = 3; //quarta
-        dia[1] = 5;  //sexta
+        horario[0] = 1;
+        horario[1] = 1;
+        dia[0] = 2; //quarta
+        dia[1] = 4;  //sexta
         novoDisc.setHorario(horario);
         novoDisc.setDia(dia);
         novoDisc.setAprovado(false);
@@ -346,10 +346,10 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         novoDisc = new Disciplina("CG");
         horario = new int[2];
         dia = new int[2];        
-        horario[0] = 2;
-        horario[1] = 1;
-        dia[0] = 4; //quinta
-        dia[1] = 5;  //sexta
+        horario[0] = 1;
+        horario[1] = 0;
+        dia[0] = 3; //quinta
+        dia[1] = 4;  //sexta
         novoDisc.setHorario(horario);
         novoDisc.setDia(dia);
         novoDisc.setAprovado(false);
@@ -359,10 +359,10 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         novoDisc = new Disciplina("CG2");
         horario = new int[2];
         dia = new int[2];        
-        horario[0] = 2;
-        horario[1] = 1;
-        dia[0] = 4; //quinta
-        dia[1] = 5;  //sexta
+        horario[0] = 1;
+        horario[1] = 0;
+        dia[0] = 3; //quinta
+        dia[1] = 4;  //sexta
         novoDisc.setHorario(horario);
         novoDisc.setDia(dia);
         novoDisc.setAprovado(false);
@@ -370,11 +370,12 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         
         MontaGrade inicial = new MontaGrade(semana, discNaoFinalizadas);
         Nodo nodo = new BuscaLargura().busca(inicial);
+        
         if(nodo == null){
             JOptionPane.showMessageDialog(rootPane, "Sem solução!");
         } else{
             System.out.println(nodo.montaCaminho());
-            JOptionPane.showMessageDialog(rootPane, "Solução: \n" + nodo.montaCaminho());
+            JOptionPane.showMessageDialog(rootPane, "Solução: \n" + nodo.getEstado().toString());
         }
     }//GEN-LAST:event_btCen1ActionPerformed
 
