@@ -1,6 +1,8 @@
 package grades_ia;
 
+import busca.BuscaIterativo;
 import busca.BuscaLargura;
+import busca.BuscaProfundidade;
 import busca.Nodo;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -26,6 +28,8 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -48,7 +52,10 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         btCriaDep = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btGeraGrade = new javax.swing.JButton();
-        btCen1 = new javax.swing.JButton();
+        btCenario1 = new javax.swing.JButton();
+        btCenario2 = new javax.swing.JButton();
+        btCenario3 = new javax.swing.JButton();
+        cbBusca = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -192,12 +199,28 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
             }
         });
 
-        btCen1.setText("Usar cenário 1");
-        btCen1.addActionListener(new java.awt.event.ActionListener() {
+        btCenario1.setText("Usar cenário 1");
+        btCenario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCen1ActionPerformed(evt);
+                btCenario1ActionPerformed(evt);
             }
         });
+
+        btCenario2.setText("Usar cenário 2");
+        btCenario2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCenario2ActionPerformed(evt);
+            }
+        });
+
+        btCenario3.setText("Usar cenário 3");
+        btCenario3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCenario3ActionPerformed(evt);
+            }
+        });
+
+        cbBusca.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Largura", "Profundidade", "Iterativo" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -207,15 +230,27 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btGeraGrade)
-                    .addComponent(btCen1))
-                .addContainerGap(335, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btCenario1)
+                            .addComponent(btCenario2)
+                            .addComponent(btCenario3))
+                        .addGap(83, 83, 83)
+                        .addComponent(cbBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btCen1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCenario1)
+                    .addComponent(cbBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btCenario2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btCenario3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(btGeraGrade)
                 .addContainerGap())
         );
@@ -291,7 +326,7 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btGeraGradeActionPerformed
 
-    private void btCen1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCen1ActionPerformed
+    private void btCenario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCenario1ActionPerformed
         String[][] semana = new String[5][2];
         int[] horario = new int[2];
         int[] dia = new int[2];
@@ -369,7 +404,15 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         discNaoFinalizadas.add(novoDisc);
         
         MontaGrade inicial = new MontaGrade(semana, discNaoFinalizadas);
-        Nodo nodo = new BuscaLargura().busca(inicial);
+        System.out.println(cbBusca.getSelectedIndex());
+        Nodo nodo;
+        if(cbBusca.getSelectedIndex() == 0){
+            nodo = new BuscaLargura().busca(inicial);
+        } else if(cbBusca.getSelectedIndex() == 1){
+            nodo = new BuscaProfundidade().busca(inicial);
+        } else{
+           nodo = new BuscaIterativo().busca(inicial);
+        }        
         
         if(nodo == null){
             JOptionPane.showMessageDialog(rootPane, "Sem solução!");
@@ -377,7 +420,229 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
             System.out.println(nodo.montaCaminho());
             JOptionPane.showMessageDialog(rootPane, "Solução: \n" + nodo.getEstado().toString());
         }
-    }//GEN-LAST:event_btCen1ActionPerformed
+    }//GEN-LAST:event_btCenario1ActionPerformed
+
+    private void btCenario2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCenario2ActionPerformed
+        String[][] semana = new String[5][2];
+        int[] horario = new int[2];
+        int[] dia = new int[2];
+        ArrayList<Disciplina> discNaoFinalizadas = new ArrayList<>();
+        Disciplina dependencia;
+        
+        Disciplina novoDisc = new Disciplina("PS2");
+        horario[0] = 0;
+        horario[1] = 1;
+        dia[0] = 0; //segunda
+        dia[1] = 1;  //terca
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        discNaoFinalizadas.add(novoDisc);
+        
+        novoDisc = new Disciplina("Robotica");
+        horario = new int[2];
+        dia = new int[2];
+        horario[0] = 1;
+        horario[1] = 0;
+        dia[0] = 0; //segunda
+        dia[1] = 1;  //terca
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        discNaoFinalizadas.add(novoDisc);
+        
+        novoDisc = new Disciplina("WEB");
+        horario = new int[2];
+        dia = new int[2];        
+        horario[0] = 0;
+        horario[1] = 0;
+        dia[0] = 2; //quarta
+        dia[1] = 3;  //quinta
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        discNaoFinalizadas.add(novoDisc);
+        
+        novoDisc = new Disciplina("Grafos");
+        horario = new int[2];
+        dia = new int[2];        
+        horario[0] = 1;
+        horario[1] = 1;
+        dia[0] = 2; //quarta
+        dia[1] = 4;  //sexta
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        discNaoFinalizadas.add(novoDisc);
+        dependencia = novoDisc;
+        
+        novoDisc = new Disciplina("IA");
+        horario = new int[2];
+        dia = new int[2];        
+        horario[0] = 1;
+        horario[1] = 1;
+        dia[0] = 2; //quarta
+        dia[1] = 4;  //sexta
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        novoDisc.setDependencia(dependencia);
+        discNaoFinalizadas.add(novoDisc);
+        
+        novoDisc = new Disciplina("CG");
+        horario = new int[2];
+        dia = new int[2];        
+        horario[0] = 1;
+        horario[1] = 0;
+        dia[0] = 3; //quinta
+        dia[1] = 4;  //sexta
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        discNaoFinalizadas.add(novoDisc);
+        
+        
+        novoDisc = new Disciplina("CG2");
+        horario = new int[2];
+        dia = new int[2];        
+        horario[0] = 1;
+        horario[1] = 0;
+        dia[0] = 3; //quinta
+        dia[1] = 4;  //sexta
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        discNaoFinalizadas.add(novoDisc);
+        
+        MontaGrade inicial = new MontaGrade(semana, discNaoFinalizadas);
+        System.out.println(cbBusca.getSelectedIndex());
+        Nodo nodo;
+        if(cbBusca.getSelectedIndex() == 0){
+            nodo = new BuscaLargura().busca(inicial);
+        } else if(cbBusca.getSelectedIndex() == 1){
+            nodo = new BuscaProfundidade().busca(inicial);
+        } else{
+           nodo = new BuscaIterativo().busca(inicial);
+        }
+        
+        if(nodo == null){
+            JOptionPane.showMessageDialog(rootPane, "Sem solução!");
+        } else{
+            System.out.println(nodo.montaCaminho());
+            JOptionPane.showMessageDialog(rootPane, "Solução: \n" + nodo.getEstado().toString());
+        }
+    }//GEN-LAST:event_btCenario2ActionPerformed
+
+    private void btCenario3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCenario3ActionPerformed
+        String[][] semana = new String[5][2];
+        int[] horario = new int[2];
+        int[] dia = new int[2];
+        ArrayList<Disciplina> discNaoFinalizadas = new ArrayList<>();
+        Disciplina dependencia;
+        
+        Disciplina novoDisc = new Disciplina("PS2");
+        horario[0] = 0;
+        horario[1] = 1;
+        dia[0] = 0; //segunda
+        dia[1] = 1;  //terca
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        discNaoFinalizadas.add(novoDisc);
+        
+        novoDisc = new Disciplina("Robotica");
+        horario = new int[2];
+        dia = new int[2];
+        horario[0] = 1;
+        horario[1] = 0;
+        dia[0] = 0; //segunda
+        dia[1] = 1;  //terca
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        discNaoFinalizadas.add(novoDisc);
+        
+        novoDisc = new Disciplina("WEB");
+        horario = new int[2];
+        dia = new int[2];        
+        horario[0] = 0;
+        horario[1] = 0;
+        dia[0] = 2; //quarta
+        dia[1] = 3;  //quinta
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        discNaoFinalizadas.add(novoDisc);
+        
+        novoDisc = new Disciplina("Grafos");
+        horario = new int[2];
+        dia = new int[2];        
+        horario[0] = 1;
+        horario[1] = 1;
+        dia[0] = 1; //quarta
+        dia[1] = 1;  //sexta
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        discNaoFinalizadas.add(novoDisc);
+        dependencia = novoDisc;
+        
+        novoDisc = new Disciplina("IA");
+        horario = new int[2];
+        dia = new int[2];        
+        horario[0] = 1;
+        horario[1] = 1;
+        dia[0] = 2; //quarta
+        dia[1] = 4;  //sexta
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        novoDisc.setDependencia(dependencia);
+        discNaoFinalizadas.add(novoDisc);
+        
+        novoDisc = new Disciplina("CG");
+        horario = new int[2];
+        dia = new int[2];        
+        horario[0] = 1;
+        horario[1] = 0;
+        dia[0] = 3; //quinta
+        dia[1] = 4;  //sexta
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        discNaoFinalizadas.add(novoDisc);
+        
+        
+        novoDisc = new Disciplina("CG2");
+        horario = new int[2];
+        dia = new int[2];        
+        horario[0] = 1;
+        horario[1] = 0;
+        dia[0] = 3; //quinta
+        dia[1] = 4;  //sexta
+        novoDisc.setHorario(horario);
+        novoDisc.setDia(dia);
+        novoDisc.setAprovado(false);
+        discNaoFinalizadas.add(novoDisc);
+        
+        MontaGrade inicial = new MontaGrade(semana, discNaoFinalizadas);
+        System.out.println(cbBusca.getSelectedIndex());
+        Nodo nodo;
+        if(cbBusca.getSelectedIndex() == 0){
+            nodo = new BuscaLargura().busca(inicial);
+        } else if(cbBusca.getSelectedIndex() == 1){
+            nodo = new BuscaProfundidade().busca(inicial);
+        } else{
+           nodo = new BuscaIterativo().busca(inicial);
+        }
+        
+        if(nodo == null){
+            JOptionPane.showMessageDialog(rootPane, "Sem solução!");
+        } else{
+            System.out.println(nodo.montaCaminho());
+            JOptionPane.showMessageDialog(rootPane, "Solução: \n" + nodo.getEstado().toString());
+        }
+    }//GEN-LAST:event_btCenario3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -415,11 +680,16 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCen1;
+    private javax.swing.JButton btCenario1;
+    private javax.swing.JButton btCenario2;
+    private javax.swing.JButton btCenario3;
     private javax.swing.JButton btCriaDep;
     private javax.swing.JButton btCriaDisc;
     private javax.swing.JButton btGeraGrade;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JCheckBox cbAprovado;
+    private javax.swing.JComboBox cbBusca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

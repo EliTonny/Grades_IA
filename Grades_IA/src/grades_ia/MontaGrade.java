@@ -127,6 +127,10 @@ public class MontaGrade implements Estado, Antecessor{
             MontaGrade grade = (MontaGrade) o;
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 2; j++) {
+                    if(grade.getSemana()[i][j] == null){
+                        return false;
+                    }
+                    
                     if(!grade.getSemana()[i][j].equals(this.semana[i][j])){
                         return false;
                     }
