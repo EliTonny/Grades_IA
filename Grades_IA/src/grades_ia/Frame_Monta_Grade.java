@@ -406,6 +406,7 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         MontaGrade inicial = new MontaGrade(semana, discNaoFinalizadas);
         System.out.println(cbBusca.getSelectedIndex());
         Nodo nodo;
+        long tempo = System.nanoTime();
         if(cbBusca.getSelectedIndex() == 0){
             nodo = new BuscaLargura().busca(inicial);
         } else if(cbBusca.getSelectedIndex() == 1){
@@ -413,11 +414,13 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         } else{
            nodo = new BuscaIterativo().busca(inicial);
         }        
+        tempo = System.nanoTime() - tempo;
         
         if(nodo == null){
             JOptionPane.showMessageDialog(rootPane, "Sem solução!");
         } else{
             System.out.println(nodo.montaCaminho());
+            System.out.println(tempo);
             JOptionPane.showMessageDialog(rootPane, "Solução: \n" + nodo.getEstado().toString());
         }
     }//GEN-LAST:event_btCenario1ActionPerformed
@@ -517,17 +520,20 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         MontaGrade inicial = new MontaGrade(semana, discNaoFinalizadas);
         System.out.println(cbBusca.getSelectedIndex());
         Nodo nodo;
+        long tempo = System.nanoTime();
         if(cbBusca.getSelectedIndex() == 0){
             nodo = new BuscaLargura().busca(inicial);
         } else if(cbBusca.getSelectedIndex() == 1){
             nodo = new BuscaProfundidade().busca(inicial);
         } else{
            nodo = new BuscaIterativo().busca(inicial);
-        }
+        }        
+        tempo = System.nanoTime() - tempo;
         
         if(nodo == null){
             JOptionPane.showMessageDialog(rootPane, "Sem solução!");
         } else{
+            System.out.println(tempo);
             System.out.println(nodo.montaCaminho());
             JOptionPane.showMessageDialog(rootPane, "Solução: \n" + nodo.getEstado().toString());
         }
@@ -628,18 +634,22 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         MontaGrade inicial = new MontaGrade(semana, discNaoFinalizadas);
         System.out.println(cbBusca.getSelectedIndex());
         Nodo nodo;
+        long tempo = System.nanoTime();
         if(cbBusca.getSelectedIndex() == 0){
             nodo = new BuscaLargura().busca(inicial);
         } else if(cbBusca.getSelectedIndex() == 1){
             nodo = new BuscaProfundidade().busca(inicial);
         } else{
            nodo = new BuscaIterativo().busca(inicial);
-        }
+        }        
+        tempo = System.nanoTime() - tempo;
         
         if(nodo == null){
+            System.out.println(tempo);
             JOptionPane.showMessageDialog(rootPane, "Sem solução!");
         } else{
             System.out.println(nodo.montaCaminho());
+            System.out.println(tempo);
             JOptionPane.showMessageDialog(rootPane, "Solução: \n" + nodo.getEstado().toString());
         }
     }//GEN-LAST:event_btCenario3ActionPerformed

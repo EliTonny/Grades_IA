@@ -25,18 +25,12 @@ public class MontaGrade implements Estado, Antecessor{
     @Override
     public boolean ehMeta() {
         //Semana preenchida com todas as aulas
-        boolean retorno =
-         /*! "".equals(semana[0][0]) && ! "".equals(semana[0][1]) &&
-               ! "".equals(semana[1][0]) && ! "".equals(semana[1][1]) &&
-               ! "".equals(semana[2][0]) && ! "".equals(semana[2][1]) &&
-               ! "".equals(semana[3][0]) && ! "".equals(semana[3][1]) &&
-               ! "".equals(semana[4][0]) && ! "".equals(semana[4][1]);*/
-               semana[0][0] != null && semana[0][1] != null &&
+               
+        return semana[0][0] != null && semana[0][1] != null &&
                semana[1][0] != null && semana[1][1] != null &&
                semana[2][0] != null && semana[2][1] != null &&
                semana[3][0] != null && semana[3][1] != null &&
                semana[4][0] != null && semana[4][1] != null;
-        return retorno;
         
     }
 
