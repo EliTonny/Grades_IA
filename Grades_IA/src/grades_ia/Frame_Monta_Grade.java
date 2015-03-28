@@ -3,6 +3,7 @@ package grades_ia;
 import busca.BuscaIterativo;
 import busca.BuscaLargura;
 import busca.BuscaProfundidade;
+import busca.MostraStatusConsole;
 import busca.Nodo;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -408,11 +409,11 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         Nodo nodo;
         long tempo = System.nanoTime();
         if(cbBusca.getSelectedIndex() == 0){
-            nodo = new BuscaLargura().busca(inicial);
+            nodo = new BuscaLargura(new MostraStatusConsole()).busca(inicial);
         } else if(cbBusca.getSelectedIndex() == 1){
-            nodo = new BuscaProfundidade().busca(inicial);
+            nodo = new BuscaProfundidade(new MostraStatusConsole()).busca(inicial);
         } else{
-           nodo = new BuscaIterativo().busca(inicial);
+           nodo = new BuscaIterativo(new MostraStatusConsole()).busca(inicial);
         }        
         tempo = System.nanoTime() - tempo;
         
@@ -522,11 +523,11 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         Nodo nodo;
         long tempo = System.nanoTime();
         if(cbBusca.getSelectedIndex() == 0){
-            nodo = new BuscaLargura().busca(inicial);
+            nodo = new BuscaLargura(new MostraStatusConsole()).busca(inicial);
         } else if(cbBusca.getSelectedIndex() == 1){
-            nodo = new BuscaProfundidade().busca(inicial);
+            nodo = new BuscaProfundidade(new MostraStatusConsole()).busca(inicial);
         } else{
-           nodo = new BuscaIterativo().busca(inicial);
+           nodo = new BuscaIterativo(new MostraStatusConsole()).busca(inicial);
         }        
         tempo = System.nanoTime() - tempo;
         
@@ -636,11 +637,11 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
         Nodo nodo;
         long tempo = System.nanoTime();
         if(cbBusca.getSelectedIndex() == 0){
-            nodo = new BuscaLargura().busca(inicial);
+            nodo = new BuscaLargura(new MostraStatusConsole()).busca(inicial);
         } else if(cbBusca.getSelectedIndex() == 1){
-            nodo = new BuscaProfundidade().busca(inicial);
+            nodo = new BuscaProfundidade(new MostraStatusConsole()).busca(inicial);
         } else{
-           nodo = new BuscaIterativo().busca(inicial);
+           nodo = new BuscaIterativo(new MostraStatusConsole()).busca(inicial);
         }        
         tempo = System.nanoTime() - tempo;
         
@@ -652,6 +653,8 @@ public class Frame_Monta_Grade extends javax.swing.JFrame {
             System.out.println(tempo);
             JOptionPane.showMessageDialog(rootPane, "Solução: \n" + nodo.getEstado().toString());
         }
+       
+        
     }//GEN-LAST:event_btCenario3ActionPerformed
 
     /**

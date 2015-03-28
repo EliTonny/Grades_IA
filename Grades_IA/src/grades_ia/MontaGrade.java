@@ -12,10 +12,13 @@ public class MontaGrade implements Estado, Antecessor{
     ArrayList<Disciplina> materias;
     
     public MontaGrade(String[][] semana, ArrayList<Disciplina> materias){
-        this.semana = semana;
-        this.materias = materias;
-        
-        
+        for (int i = 0; i < semana.length; i++) {
+            for (int j = 0; j < semana[0].length; j++) {
+                this.semana[i][j] = semana[i][j];
+            }
+        }
+        this.materias = new ArrayList<>();
+        this.materias.addAll(materias);               
     }
 
     public String[][] getSemana() {
@@ -48,10 +51,17 @@ public class MontaGrade implements Estado, Antecessor{
         
         for (Disciplina disciplina : materias) {
             if(ehValido(disciplina)){
-                String[][] semanaNova = semana.clone();
+                String[][] semanaNova = new String[5][2];
+                for (int i = 0; i < semana.length; i++) {
+                    for (int j = 0; j < semana[0].length; j++) {
+                        semanaNova[i][j] = semana[i][j];
+                    }
+                }
                 
                 semanaNova[disciplina.getDia()[0]][disciplina.getHorario()[0]] = disciplina.getNome();
                 semanaNova[disciplina.getDia()[1]][disciplina.getHorario()[1]] = disciplina.getNome();
+                System.out.println(semanaNova[disciplina.getDia()[0]][disciplina.getHorario()[0]]);
+                System.out.println(semanaNova[disciplina.getDia()[1]][disciplina.getHorario()[1]]);
                 
                 ArrayList<Disciplina> materiasNovas = new ArrayList<>();
                 materiasNovas.addAll(materias);
